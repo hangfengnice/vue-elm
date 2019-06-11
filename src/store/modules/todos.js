@@ -10,19 +10,19 @@ const getters = {
 
 const actions = {
   async fetchTodos({commit}){
-    const response = await axios.get('http://jsonplaceholder.typicode.com/todos');
+    const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
     // console.log(response.data)
     commit('setTodos',response.data)
   },
   async addTodo({commit},title){
-    const res = await axios.post('http://jsonplaceholder.typicode.com/todos',{
+    const res = await axios.post('https://jsonplaceholder.typicode.com/todos',{
       title,
       completed: false
     })
     commit('newTodo',res.data)
   },
   async deleteTodo({commit}, id){
-    await axios.delete(`http://jsonplaceholder.typicode.com/todos/${id}`)
+    await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
     commit('removeTodo',id)
   },
   async filterTodos( {commit} , e){
@@ -31,13 +31,13 @@ const actions = {
     const limit = parseInt(e.target.options[e.target.options.selectedIndex].innerText)
     // console.log(limit)
     const response = await axios.get(
-      `http://jsonplaceholder.typicode.com/todos?_limit=${limit}`);
+      `https://jsonplaceholder.typicode.com/todos?_limit=${limit}`);
     // console.log(response.data)
     commit('setTodos',response.data)
   },
   async updateTodo({commit},updTodo){
     const response = await axios.put(
-      `http://jsonplaceholder.typicode.com/todos/${updTodo.id}`);
+      `https://jsonplaceholder.typicode.com/todos/${updTodo.id}`);
     // console.log(response.data)
     commit('updTodo',updTodo)
   }
