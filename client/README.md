@@ -1,4 +1,4 @@
-# vue-todo-manager
+# client
 
 ## Project setup
 ```
