@@ -9,9 +9,10 @@
         :type="type"
       />
       <button v-if="btnTitle" @click="$emit('btnClick')" :disabled="disabled">{{btnTitle}}</button>
-      <!-- 错误提醒 -->
-      <div v-if="error" class="invalid-feedback">{{error}}</div>
     </div>
+    <!-- 错误提醒 -->
+    <div v-if="error" class="invalid-feedback">{{error}}</div>
+    <!-- <div v-else class="success-feedback">success</div> -->
   </div>
 </template>
 
@@ -62,5 +63,8 @@ export default {
 .invalid-feedback {
   color: red;
   padding-top: 5px;
+}
+.success-feedback {
+  color: #48ca38;
 }
 </style>
