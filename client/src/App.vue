@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     getLocation() {
-      self = this;
+     var _self = this;
       AMap.plugin("AMap.Geolocation", function() {
         var geolocation = new AMap.Geolocation({
           // 是否使用高精度定位，默认：true
@@ -28,8 +28,8 @@ export default {
         function onComplete(data) {
           // data是具体的定位信息  精准定位
           // console.log(data);
-          self.$store.dispatch("setLocation", data);
-          self.$store.dispatch("setAddress", data.formattedAddress);
+          _self.$store.dispatch("setLocation", data);
+          _self.$store.dispatch("setAddress", data.formattedAddress);
         }
 
         function onError(data) {
