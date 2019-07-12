@@ -1,7 +1,7 @@
  <template>
   <div class="location">
     <div class="title">当前定位</div>
-    <div class="des">
+    <div class="des" @click="$emit('click')">
       <i class="fa fa-location-arrow"></i>
       <span>{{address}}</span>
     </div>
@@ -18,7 +18,7 @@ export default {
 </script>
  
  <style lang='scss' scoped>
- .title {
+.title {
   margin: 10px 0;
   font-size: 12px;
 }

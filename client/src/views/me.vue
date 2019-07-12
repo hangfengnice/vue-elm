@@ -1,7 +1,5 @@
 <template>
-  <div class="me">
-me
-  </div>
+  <div class="me">me</div>
 </template>
 
 <script>

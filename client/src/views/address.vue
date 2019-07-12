@@ -3,18 +3,18 @@
     <Header :isLeft="true" title="选折收货地址"></Header>
     <div class="city_search">
       <div class="search">
-        <span class="city">
+        <span class="city" @click="$router.push('/city')">
           {{city}}
           <i class="fa fa-angle-down"></i>
         </span>
         <i class="fa fa-search"></i>
         <input type="text" v-model="search_val" placeholder="家/学校等" />
       </div>
-      <Location :address="address" />
+      <Location @click="selectAddress" :address="address" />
     </div>
     <div class="area">
       <ul class="area_list">
-        <li :key="index" v-for="(item, index) of areaList">
+        <li @click="selectAddress(item)" :key="index" v-for="(item, index) of areaList">
           <h4>{{item.name}}</h4>
           <p>{{item.district}}{{item.address}}</p>
         </li>
@@ -66,9 +66,24 @@ export default {
           _self.areaList = result.tips;
         });
       });
+    },
+    selectAddress(item) {
+      // 设置地址
+      if (item) {
+        this.$store.dispatch(
+          "setAddress",
+          item.district + item.address + item.name
+        );
+      } else {
+        this.$store.dispatch("setAddress", this.address);
+      }
+
+      // 跳转home
+      this.$router.push("/home");
     }
   },
   beforeRouteEnter(to, from, next) {
+    // console.log(to.params.city)
     // console.log(to)
     next(vm => {
       vm.city = to.params.city;

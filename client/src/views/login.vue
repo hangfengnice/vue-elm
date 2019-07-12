@@ -65,7 +65,7 @@ export default {
           console.log(res);
           localStorage.setItem("ele_login", true);
           this.$router.push("/");
-          console.log(1)
+          console.log(1);
         })
         .catch(err => {
           this.errors = {
@@ -74,7 +74,6 @@ export default {
         });
     },
     getVerifyCode() {
-
       if (this.validatePhone()) {
         this.validateBtn();
         this.$axios
