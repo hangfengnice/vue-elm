@@ -1,25 +1,31 @@
 <template>
   <div class="home">
-   <div class="header">
-     <div class="address_map">
-       <i class="fa fa-map-marker"></i>
-       <span>{{address}}</span>
-       <i class='fa da-sort-desc'> </i>
-     </div>
-     <div class="shop_search">
-       <i class="fa fa-search"></i>
-       搜索商家 商家名称
-     </div>
-   </div>
+    <div class="header">
+      <div class="address_map" @click="$router.push({name: 'address',params: {city}})">
+        <i class="fa fa-map-marker"></i>
+        <span>{{address}}</span>
+        <i class="fa fa-sort-desc"></i>
+      </div>
+      <div class="shop_search">
+        <i class="fa fa-search"></i>
+        搜索商家 商家名称
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "home",
-  computed:{
-    address(){
- return this.$store.getters.address
+  computed: {
+    address() {
+      return this.$store.getters.address;
+    },
+    city() {
+      return (
+        this.$store.getters.location.addressComponent.city ||
+        this.$store.getters.location.addressComponent.province
+      );
     }
   }
 };

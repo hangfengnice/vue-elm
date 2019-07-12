@@ -5,8 +5,7 @@ import Login from './views/login.vue'
 import Home from './views/home.vue'
 import Order from './views/order.vue'
 import Me from './views/me.vue'
-
-
+import Address from './views/address.vue'
 
 Vue.use(Router)
 
@@ -34,6 +33,11 @@ const router =  new Router({
       path: "/me",
       name: "me",
       component: Me
+    },
+    {
+      path: "address",
+      name: 'address',
+      component:Address
     }
 
    ]
