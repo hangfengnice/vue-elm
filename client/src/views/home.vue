@@ -7,31 +7,57 @@
         <i class="fa fa-sort-desc"></i>
       </div>
     </div>
-    <div class="search_wrap">
+    <div class="search_wrap" :class="{fixedview: showFilter}">
       <div class="shop_search">
         <i class="fa fa-search"></i>
         搜索商家 商家名称
       </div>
     </div>
     <div id="container">
+      <!-- swipe 轮播 -->
       <mt-swipe :auto="2000" class="swiper">
         <mt-swipe-item v-for="(item, index) of swipeImgs" :key="index">
           <img :src="item" alt />
         </mt-swipe-item>
       </mt-swipe>
+      <!-- 分类 -->
+      <mt-swipe :auto="0" class="entries">
+        <mt-swipe-item class="entry_wrap" v-for="(entry, index) of entries" :key="index">
+          <div v-for="(item, index) of entry" :key="index" class="foodentry">
+            <div class="img_wrap">
+              <img :src="item.image" alt />
+            </div>
+            <span>{{item.name}}</span>
+          </div>
+        </mt-swipe-item>
+      </mt-swipe>
     </div>
+
+    <!-- 推荐商家 -->
+    <div class="shoplist-title">推荐商家</div>
+    <!-- 导航 -->
+    <FilterView :filterData="filterData" 
+    @update='update'
+    @searchFixed="showFilterView" />
   </div>
 </template>
 
 <script>
 import { Swipe, SwipeItem } from "mint-ui";
+import FilterView from "../components/filterView";
 
 export default {
   name: "home",
   data() {
     return {
-      swipeImgs: []
+      swipeImgs: [],
+      entries: [],
+      filterData: null,
+      showFilter: false
     };
+  },
+  components: {
+    FilterView
   },
   computed: {
     address() {
@@ -50,9 +76,20 @@ export default {
   methods: {
     getData() {
       this.$axios("/api/profile/shopping").then(res => {
-        // console.log(res.data)
+        // console.log(res.data);
         this.swipeImgs = res.data.swipeImgs;
+        this.entries = res.data.entries;
       });
+      this.$axios("/api/profile/filter").then(res => {
+        console.log(res.data);
+        this.filterData = res.data;
+      });
+    },
+    showFilterView(isShow) {
+      this.showFilter = isShow;
+    },
+    update(condation){
+      console.log(condation)
     }
   }
 };
@@ -86,24 +123,90 @@ export default {
   text-overflow: ellipsis;
 }
 .search_wrap .shop_search {
-  // margin-top: 10px;
+  /* margin-top: 10px; */
   background-color: #fff;
   padding: 10px 0;
   border-radius: 4px;
   text-align: center;
   color: #aaa;
 }
+
 .search_wrap {
   position: sticky;
   top: 0px;
-  z-index: 2;
+  z-index: 999;
   box-sizing: border-box;
 }
 .swiper {
   height: 100px;
-  img {
-    width: 100%;
-    height: 100px;
-  }
+}
+.swiper img {
+  width: 100%;
+  height: 100px;
+}
+
+.entries {
+  background: #fff;
+  height: 47.2vw;
+  text-align: center;
+  overflow: hidden;
+}
+.foodentry {
+  width: 20%;
+  float: left;
+  position: relative;
+  margin-top: 2.933333vw;
+}
+.foodentry .img_wrap {
+  position: relative;
+  display: inline-block;
+  width: 12vw;
+  height: 12vw;
+}
+.img_wrap img {
+  width: 100%;
+  height: 100%;
+}
+.foodentry span {
+  display: block;
+  color: #666;
+  font-size: 0.32rem;
+}
+/* 推荐商家 */
+.shoplist-title {
+  display: flex;
+  align-items: flex;
+  justify-content: center;
+  height: 9.6vw;
+  line-height: 9.6vw;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+}
+.shoplist-title:after,
+.shoplist-title:before {
+  display: block;
+  content: "一";
+  width: 5.333333vw;
+  height: 0.266667vw;
+  color: #999;
+}
+.shoplist-title:before {
+  margin-right: 3.466667vw;
+}
+.shoplist-title:after {
+  margin-left: 3.466667vw;
+}
+
+.fixedview {
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  z-index: 999;
+}
+
+.mint-loadmore {
+  height: calc(100% - 95px);
+  overflow: auto;
 }
 </style>
