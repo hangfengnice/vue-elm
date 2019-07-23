@@ -39,12 +39,18 @@
     <FilterView :filterData="filterData" 
     @update='update'
     @searchFixed="showFilterView" />
+
+    <!-- 商家信息 -->
+    <div class="shoplist">
+      <IndexShop v-for="(item,index) in restaurants" :key="index" :restaurant="item.restaurant"  />
+    </div>
   </div>
 </template>
 
 <script>
 import { Swipe, SwipeItem } from "mint-ui";
 import FilterView from "../components/filterView";
+import IndexShop from '../components/indexShop'
 
 export default {
   name: "home",
@@ -53,11 +59,15 @@ export default {
       swipeImgs: [],
       entries: [],
       filterData: null,
-      showFilter: false
+      showFilter: false,
+      page: 1,
+      size: 5,
+      restaurants: []  // 存放商家
     };
   },
   components: {
-    FilterView
+    FilterView,
+    IndexShop
   },
   computed: {
     address() {
@@ -81,9 +91,17 @@ export default {
         this.entries = res.data.entries;
       });
       this.$axios("/api/profile/filter").then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.filterData = res.data;
       });
+
+      // 拉取商家信息
+
+      this.$axios.post(`/api/profile/restaurants/1/5`)
+      .then(res => {
+        console.log(res.data)
+        this.restaurants = res.data
+      })
     },
     showFilterView(isShow) {
       this.showFilter = isShow;
