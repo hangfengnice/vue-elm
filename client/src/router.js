@@ -7,6 +7,7 @@ import Order from "./views/order.vue";
 import Me from "./views/me.vue";
 import Address from "./views/address.vue";
 import City from "./views/city.vue";
+import Search from './views/search.vue'
 
 Vue.use(Router);
 
@@ -49,7 +50,9 @@ const router = new Router({
         }
       ]
     },
-    { path: "/login", name: "login", component: Login }
+    { path: "/login", name: "login", component: Login },
+    { path: "/search", name: "search", component: Search }
+
   ]
 });
 
