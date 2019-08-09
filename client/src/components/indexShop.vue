@@ -3,7 +3,7 @@
     <div class="index-shopInfo">
       <!-- 左侧 -->
       <div class="logo_container">
-        <img :src="restaurant.image_path" alt />
+        <img :src="restaurant.image_path" alt @click='$router.push("/shop")'/>
       </div>
 
       <!-- 右侧 -->

@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <Header :isLeft="true" title="选折收货地址"></Header>
+    <Header :isLeft="true" title="选择收货地址"></Header>
     <div class="city_search">
       <div class="search">
         <span class="city" @click="$router.push('/city')">

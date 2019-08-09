@@ -19,7 +19,7 @@
         </div>
       </div>
       <div v-else>
-        <SearchIndex @click="shopItemClick" :data="result.restaurants"></SearchIndex>
+        <SearchIndex  @click="shopItemClick" :data="result.restaurants"></SearchIndex>
         <SearchIndex :data="result.words"></SearchIndex>
       </div>
     </div>
@@ -105,6 +105,7 @@ export default {
       this.page = 0;
       this.restaurants = [];
       this.showShop = true;
+      this.$router.push('/shop')
     },
     update(condation) {
       this.data = condation;
